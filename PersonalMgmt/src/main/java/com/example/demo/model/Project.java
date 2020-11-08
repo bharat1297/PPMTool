@@ -2,30 +2,37 @@ package com.example.demo.model;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
-import org.springframework.lang.NonNull;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class PM {
+public class Project {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private  Long id;
+	@NotBlank(message = "Project Name is required")
 	private String projectName;
+	@NotBlank(message = "Description is required")
+	@Size(min = 4, max = 20,message ="4-20 words required")
+	@Column(updatable = false, unique = true)
 	private String projectIdentifer;
+	@NotBlank(message = "Description required")
 	private String description;
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date start_date;
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date end_date;
-	
+	@JsonFormat(pattern = "yyyy-mm-dd:hh-mm-ss")
 	private Date created_At;
+	@JsonFormat(pattern = "yyyy-mm-dd:hh-mm-ss")
 	private Date updated_At;
 	
-	public PM(){
+	public Project(){
 		
 	}
 	
